@@ -2,16 +2,6 @@
 
 This repository contains the code for utlizing the language models for chunking. The experiements were done on conll-2000 dataset. 
 
-
-## Experimental Environment
-
-- OS: Ubuntu 16.04 LTS (64bit)
-- GPU: Nvidia GTX 1080, Titan XP, and Tesla P100
-- CUDA: 10.1 (Nvidia driver: 418.39), CuDNN: 7.6.4
-- Python (>= 3.6.8)
-- **PyTorch** (>= 1.3.1)
-- Core Python library: [**Transformers by HuggingFace**](https://github.com/huggingface/transformers) (>=2.2.0)
-
 ## Pre-requisite Python Libraries
 
 Please install the following libraries specified in the **requirements.txt** first before running our code.
@@ -33,7 +23,8 @@ Details will be updated soon.
 There are 3 important file beyond the preprocessing of conll:
 
 - **run.py** to extract the features from different layers and different attemtion heads
-- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script.      
+- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script.  
+- **eval_conll2000_updated.pl** updated eval script which only prints overall phrase level F1 and tag level accuracy
 
 ## How to Run Code
 
