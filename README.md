@@ -35,16 +35,18 @@ There are 3 important file beyond the preprocessing of conll:
 - **run.py** to extract the features from different layers and different attemtion heads
 - **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script.      
 
-
 ## How to Run Code
 
 > python run.py --help
 
-	usage: run.py [-h] [--data-path DATA_PATH] [--result-path RESULT_PATH]
-              [--from-scratch] [--gpu GPU] [--bias BIAS] [--seed SEED]
-              [--token-heuristic TOKEN_HEURISTIC] [--use-coo-not-parser]
+	usage: run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
 
-    optional arguments:
+**Important** Inside run.py the input pickle file for the conll tokens must be given. I.e. Update the following line:
+
+data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
+
+
+    following arguments are not needed:
       -h, --help    show this help message and exit
       --data-path DATA_PATH
       --result-path RESULT_PATH
