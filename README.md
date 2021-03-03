@@ -28,15 +28,13 @@ There are 3 important file beyond the preprocessing of conll:
 
 ## How to Run Code
 
-> python run.py --help
-
-	usage: run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
+> python3 run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
 
   **important** Inside run.py the input pickle file for the conll tokens must be given. I.e. Update the following line:
 
   data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
 
-> python evaluate_distances.py
+> python3 evaluate_distances.py
 
   **important** set the following four variables: data_type, dist_types, model_types, distances pickle file
 
