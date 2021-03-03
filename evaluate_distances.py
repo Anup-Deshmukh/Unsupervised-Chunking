@@ -78,25 +78,22 @@ for dist_type in dist_types:
 			indices = (-mod_vec).argpartition(num_cuts, axis=None)[:num_cuts]
 
 			###### for measures which are inversly proportional to distances (cos)
-			#indices = (-mod_vec).argpartition(num_cuts, axis=None)[:num_cuts]
+			#indices = (mod_vec).argpartition(num_cuts, axis=None)[:num_cuts]
 
 			x, y = np.unravel_index(indices, mod_vec.shape)
 			
 			for row, col in zip(x, y):
-					pred[row][col+1] = 'B'
+					pred[row][col+1] = 'B'   # getting a cut when distances are higher (eg. for avg_helliner)
 					#max_dists.append(mod_vec[row][col]) # for threshold
 
 			#threshold.append(np.amin(max_dists)) # for threshold
 
 			for k in range(pred.shape[0]):
-				pred[k][0] = 'B'
+				pred[k][0] = 'B'   # first tag for every sent would always be "B"
 				non_zero = np.count_nonzero(mod_vec[k]) + 1
 				pred[k][non_zero:] = 0
 
-			pred = np.where(pred == 1, 'I', pred)
-			
-			#print("changed pred for 10th", pred[142])
-			#print("gt tag:", data_tags_gt[142])
+			pred = np.where(pred == 1, 'I', pred) # apart from max dist positions all other tags should be "I"
 			
 			for l in range(pred.shape[0]):
 				for m in range(pred.shape[1]):
