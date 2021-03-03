@@ -57,7 +57,7 @@ data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
 
 
 
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/res1.png" alt="drawing" height="200" width="500"/>
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/res1.png" alt="drawing" height="180" width="550"/>
 
 ## Acknowledgments
 
