@@ -39,7 +39,7 @@ There are 3 important file beyond the preprocessing of conll:
   **important** set the following four variables: data_type, dist_types, model_types, distances pickle file
 
 
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/res1.png" alt="drawing" height="180" width="550"/>
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/new_res1.png" alt="drawing" height="180" width="550"/>
 
 ## Acknowledgments
 
