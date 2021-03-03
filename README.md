@@ -56,6 +56,8 @@ data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
                             https://arxiv.org/abs/1909.09428.
 
 
+![alt text](https://github.com/[Anup-Deshmukh]/[LM-Unsupervised-Chunker]/blob/[master]/res1.png?raw=true)
+
 ## Acknowledgments
 
 - Some utility functions and datasets used in this repo are originally from the source code for 
