@@ -15,7 +15,7 @@ Please install the following libraries specified in the **requirements.txt** fir
     
 ## Data preparation (CONLL)
 
-Please refer to the code inside data_conll for all the processed files and the original conll ata files. 
+Please refer to the code inside data_conll for all the processed files and the original conll data files. 
 Details will be updated soon. 
 
 ## Files
