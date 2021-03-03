@@ -1,4 +1,4 @@
-# Trees from Transformers
+# Language model chunker
 
 This repository contains the code for utlizing the language models for chunking. The experiements were done on conll-2000 dataset. 
 
