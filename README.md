@@ -26,6 +26,15 @@ Please install the following libraries specified in the **requirements.txt** fir
 ## Data preparation (CONLL)
 
 Please refer to the code inside data_conll for all the processed files and the original conll ata files. 
+Details will be updated soon. 
+
+## Files
+
+There are 3 important file beyond the preprocessing of conll:
+
+- **run.py** to extract the features from different layers and different attemtion heads
+- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script.      
+
 
 ## How to Run Code
 
