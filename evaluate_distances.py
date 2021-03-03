@@ -3,33 +3,36 @@ import pickle
 from sklearn.metrics import classification_report
 import collections
 
-#num_cuts = 87780 # train
-#num_cuts = 21839 # test
-num_cuts = 10280 # val
-
-
-#max length of dist vector for a sent (i.e max sent length - 1)
-#maxi = 71  #conll train
-#maxi = 61  #conll test
-maxi = 57  #conll val
+data_type = "val"  # options: ["train", "val", "test"]
 
 #dist_types = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
 dist_types = ['avg_hellinger']
 
-
 model_types = ['bert-large-cased']
 #rem_model_types = ['xlnet-base-cased', 'xlnet-large-cased']
-
-data_tags_gt = pickle.load(open("data_conll/conll/data_val_tags.pkl", "rb"))
-BI_gt = np.concatenate([np.array(g) for g in data_tags_gt])
-num_b = np.count_nonzero(BI_gt == 'B')
-print("Num of phrases: ", num_b)
-target_names = ['B', 'I']  
 
 ah_distances = pickle.load(open("outputs/avg_hellinger-val-distances.pickle", "rb"))
 #aj_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-avg_jsd-distances.pickle", "rb"))
 #l2_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-l2-distances.pickle", "rb"))
 
+#############################################################################################################
+if data_type == "train":
+	num_cuts = 87780 
+	maxi = 71 #max length of dist vector for a sent (i.e max sent length - 1)
+elif data_type == "val":
+	num_cuts = 10280 
+	maxi = 57 
+elif data_type == "test":
+	num_cuts = 21839 # 
+	maxi = 61
+
+#############################################################################################################
+data_tags_gt = pickle.load(open("data_conll/conll/data_"+data_type+"_tags.pkl", "rb"))
+BI_gt = np.concatenate([np.array(g) for g in data_tags_gt])
+num_b = np.count_nonzero(BI_gt == 'B')
+print("Num of phrases: ", num_b)
+target_names = ['B', 'I'] 
+#############################################################################################################
 for dist_type in dist_types:
 	
 	if dist_type == 'avg_hellinger':

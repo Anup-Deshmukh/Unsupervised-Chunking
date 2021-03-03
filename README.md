@@ -32,29 +32,13 @@ There are 3 important file beyond the preprocessing of conll:
 
 	usage: run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
 
-**Important** Inside run.py the input pickle file for the conll tokens must be given. I.e. Update the following line:
+  **important** Inside run.py the input pickle file for the conll tokens must be given. I.e. Update the following line:
 
-data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
+  data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
 
+> python evaluate_distances.py
 
-    following arguments are not needed:
-      -h, --help    show this help message and exit
-      --data-path DATA_PATH
-      --result-path RESULT_PATH
-      --from-scratch
-      --gpu GPU
-      --bias BIAS   the right-branching bias hyperparameter lambda
-      --seed SEED
-      --token-heuristic TOKEN_HEURISTIC     Available options: mean, first, last
-      --use-coo-not-parser  Turning on this option will allow you to exploit the
-                            COO-NOT parser (named by Dyer et al. 2019), which has
-                            been broadly adopted by recent methods for
-                            unsupervised parsing. As this parser utilizes the
-                            right-branching bias in its inner workings, it may
-                            give rise to some unexpected gains or latent issues
-                            for the resulting trees. For more details, see
-                            https://arxiv.org/abs/1909.09428.
-
+  **important** set the following four variables: data_type, dist_types, model_types, distances pickle file
 
 
 <img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/res1.png" alt="drawing" height="180" width="550"/>
