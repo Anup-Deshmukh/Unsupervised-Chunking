@@ -9,10 +9,10 @@ maxi = 70 #max length of dist vector for a sent (i.e max sent length - 1)
 dist_types = ['avg_hellinger']
 
 
-model_types = ['bert-base-cased', 'bert-large-cased', 'gpt2', 'gpt2-medium']
+model_types = ['bert-large-cased']
 rem_model_types = ['roberta-base', 'roberta-large','xlnet-base-cased', 'xlnet-large-cased']
 
-data_tags_gt = pickle.load(open(".data2/conll/data_train_tags.pkl", "rb"))
+data_tags_gt = pickle.load(open("data_conll/conll/data_train_tags.pkl", "rb"))
 BI_gt = np.concatenate([np.array(g) for g in data_tags_gt])
 num_b = np.count_nonzero(BI_gt == 'B')
 print("Num of phrases: ", num_b)
@@ -62,9 +62,6 @@ for dist_type in dist_types:
 					vec = np.pad(vec, (0, add_zeros), 'constant')
 				mod_vec[j] = vec
 			print("max_length of a sent - 1: ", maxl_sent)
-		
-			#indices = (-mod_vec).argpartition(num_cuts, axis=None)[:num_cuts]
-			#x, y = np.unravel_index(indices, mod_vec.shape)
 
 			print("Threshold for this model is: ", threshold[model_id])
 			for g in mod_vec:

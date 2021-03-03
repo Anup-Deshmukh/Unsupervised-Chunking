@@ -1,3 +1,5 @@
 outputs/
 data_ptb/
 __pycache__/
+run_ori.py
+check.txt

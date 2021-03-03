@@ -1,17 +1,7 @@
 # Trees from Transformers
 
-This repository contains the implementation for ''ARE PPE-TRAINED LANGUAGE MODELS AWARE OF PHRASES? SIMPLE BUT STRONG BASELINES FOR GRAMMAR INDCUTION''.
- 
-When using this code for following work, please cite our paper with the BibTex below.
+This repository contains the code for utlizing the language models for chunking. The experiements were done on conll-2000 dataset. 
 
-	@inproceedings{
-    Kim2020Are,
-    title={Are Pre-trained Language Models Aware of Phrases? Simple but Strong Baselines for Grammar Induction},
-    author={Taeuk Kim and Jihun Choi and Daniel Edmiston and Sang-goo Lee},
-    booktitle={International Conference on Learning Representations},
-    year={2020},
-    url={https://openreview.net/forum?id=H1xPR3NtPB}
-    }
 
 ## Experimental Environment
 
@@ -33,10 +23,9 @@ Please install the following libraries specified in the **requirements.txt** fir
     nltk==3.4
     matplotlib==2.2.3
     
-## Data preparation (PTB)
+## Data preparation (CONLL)
 
-Please download the PTB dataset (ptb-valid.txt, ptb-test.txt) from [Yoon Kim's repo](https://github.com/harvardnlp/compound-pcfg) and locate them in the **.data/PTB** folder.
-
+Please refer to the code inside data_conll for all the processed files and the original conll ata files. 
 
 ## How to Run Code
 
@@ -68,5 +57,5 @@ Please download the PTB dataset (ptb-valid.txt, ptb-test.txt) from [Yoon Kim's r
 ## Acknowledgments
 
 - Some utility functions and datasets used in this repo are originally from the source code for 
-**Compound Probabilistic Context-Free Grammars for Grammar Induction** (Y. Kim et al., ACL 2019).
-For more details, visit [the original repo](https://github.com/harvardnlp/compound-pcfg). 
+**Are Pre-trained Language Models Aware of Phrases? Simple but Strong Baselines for Grammar Induction** (Y. Kim et al., ACL 2019).
+For more details, visit [the original repo](https://github.com/galsang/trees_from_transformers). 

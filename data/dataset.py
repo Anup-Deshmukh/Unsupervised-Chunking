@@ -1,6 +1,5 @@
 from utils.yk import get_actions, get_nonbinary_spans, get_tags_tokens_lowercase
 
-
 class Dataset(object):
     def __init__(self, path, tokenizer):
         self.path = path

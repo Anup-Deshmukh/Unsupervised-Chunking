@@ -15,10 +15,13 @@ from utils.parser import not_coo_parser, parser
 from utils.tools import set_seed, select_indices, group_indices
 from utils.yk import get_actions, get_nonbinary_spans
 
-MODELS = [(BertModel, BertTokenizer, BertConfig, 'bert-base-cased'),
-          (BertModel, BertTokenizer, BertConfig, 'bert-large-cased'),
-          (GPT2Model, GPT2Tokenizer, GPT2Config, 'gpt2'),
-          (GPT2Model, GPT2Tokenizer, GPT2Config, 'gpt2-medium')]
+
+MODELS = [(BertModel, BertTokenizer, BertConfig, 'bert-large-cased')]
+
+# MODELS = [(BertModel, BertTokenizer, BertConfig, 'bert-base-cased'),
+#           (BertModel, BertTokenizer, BertConfig, 'bert-large-cased'),
+#           (GPT2Model, GPT2Tokenizer, GPT2Config, 'gpt2'),
+#           (GPT2Model, GPT2Tokenizer, GPT2Config, 'gpt2-medium')]
 
 #MODELS = [(RobertaModel, RobertaTokenizer, RobertaConfig, 'roberta-base'),
           # (RobertaModel, RobertaTokenizer, RobertaConfig, 'roberta-large'),
@@ -62,7 +65,7 @@ def compute_dist(args):
        
 
         measure = Measure(n_layers, n_att)
-        data_tokens = pickle.load(open(".data2/conll/data_train_tokens.pkl", "rb"))
+        data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
         print("tokens size: ", len(data_tokens))
         syn_dists_sents = []
 
@@ -89,8 +92,6 @@ def compute_dist(args):
             # (n_layers, n_att, seq_len, seq_len)
             all_att = torch.cat([all_att[n] for n in range(n_layers)], dim=0)
 
-
-            
             ################ ################ ################ ################ ##########
             ################ ################ ################ ################ ##########
             ################ ################ ################ ################ ##########
@@ -146,11 +147,11 @@ def compute_dist(args):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data-path',
-                        default='.data2/conll/train_filtered.txt', type=str) ## No need
+                        default='data_conll/conll/data_train_tokens.pkl', type=str) ## No need
     parser.add_argument('--dist-type', type=str) ## must give
     parser.add_argument('--result-path', default='outputs', type=str) ## must give
     parser.add_argument('--lm-cache-path',
-                        default='/data/transformers', type=str)
+                        default='data/transformers', type=str)
     parser.add_argument('--from-scratch', default=False, action='store_true')
     parser.add_argument('--gpu', default=0, type=int)
     parser.add_argument('--bias', default=0.0, type=float,
@@ -158,16 +159,6 @@ def main():
     parser.add_argument('--seed', default=1234, type=int)
     parser.add_argument('--token-heuristic', default='mean', type=str,
                         help='Available options: mean, first, last')
-    parser.add_argument('--use-not-coo-parser', default=False,
-                        action='store_true',
-                        help='Turning on this option will allow you to exploit '
-                             'the NOT-COO parser (named by Dyer et al. 2019), '
-                             'which has been broadly adopted by recent methods '
-                             'for unsupervised parsing. As this parser utilizes'
-                             ' the right-branching bias in its inner workings, '
-                             'it may give rise to some unexpected gains or '
-                             'latent issues for the resulting trees. For more '
-                             'details, see https://arxiv.org/abs/1909.09428.')
 
     args = parser.parse_args()
 
@@ -176,12 +167,11 @@ def main():
     setattr(args, 'time', datetime.datetime.now().strftime('%Y%m%d-%H:%M:%S'))
 
     dataset_name = args.data_path.split('/')[-1].split('.')[0]
-    parser = '-w-not-coo-parser' if args.use_not_coo_parser else ''
     pretrained = 'scratch' if args.from_scratch else 'pretrained'
-    result_path = f'{args.result_path}/{dataset_name}-{args.token_heuristic}-{args.dist_type}'
+    result_path = f'{args.result_path}/{args.dist_type}'
     setattr(args, 'result_path', result_path)
     set_seed(args.seed)
-    logging.disable(logging.WARNING)
+    #logging.disable(logging.WARNING)
     print('[List of arguments]')
     for a in args.__dict__:
         print(f'{a}: {args.__dict__[a]}')
@@ -189,7 +179,7 @@ def main():
     
     distances = compute_dist(args)
     
-    with open(f'{args.result_path}-distances.pickle', 'wb') as f:
+    with open(f'{args.result_path}-train-distances.pickle', 'wb') as f:
         pickle.dump(distances, f)
 
 
