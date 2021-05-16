@@ -1,6 +1,7 @@
 # Language model chunker
 
 This repository contains the code for utlizing the language models for chunking. All the experiements are done on the conll-2000 dataset. 
+(will be updated soon. )
 
 ## Pre-requisite Python Libraries
 
@@ -16,7 +17,6 @@ Install the following libraries specified in the **requirements.txt** before run
 ## Data preparation (CONLL)
 
 Please refer to the code inside data_conll for all the processed files and the original conll data files. 
-Details will be updated soon. 
 
 ## Files
 
