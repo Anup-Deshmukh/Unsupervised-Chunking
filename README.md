@@ -38,9 +38,6 @@ There are 3 important file apart from the preprocessing of conll:
 
   **important** set the following four variables: data_type, dist_types, model_types, distances pickle file
 
-
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/new_res1.png" alt="drawing" height="120" width="500"/>
-
 ## Acknowledgments
 
 - Utility functions from the folder "utils" and datasets used in this repo are originally from the source code for 
