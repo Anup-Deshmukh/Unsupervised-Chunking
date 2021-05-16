@@ -1,10 +1,10 @@
 # Language model chunker
 
-This repository contains the code for utlizing the language models for chunking. The experiements were done on conll-2000 dataset. 
+This repository contains the code for utlizing the language models for chunking. All the experiements are done on the conll-2000 dataset. 
 
 ## Pre-requisite Python Libraries
 
-Please install the following libraries specified in the **requirements.txt** first before running our code.
+Install the following libraries specified in the **requirements.txt** before running our code.
 
     transformers==2.2.0
     numpy==1.15.4
@@ -20,13 +20,13 @@ Details will be updated soon.
 
 ## Files
 
-There are 3 important file beyond the preprocessing of conll:
+There are 3 important file apart from the preprocessing of conll:
 
 - **run.py** to extract the features from different layers and different attemtion heads
 - **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script.  
 - **eval_conll2000_updated.pl** updated eval script which only prints overall phrase level F1 and tag level accuracy
 
-## How to Run Code
+## How to run the code?
 
 > python3 run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
 
@@ -43,6 +43,6 @@ There are 3 important file beyond the preprocessing of conll:
 
 ## Acknowledgments
 
-- Some utility functions and datasets used in this repo are originally from the source code for 
+- Utility functions from the folder "utils" and datasets used in this repo are originally from the source code for 
 **Are Pre-trained Language Models Aware of Phrases? Simple but Strong Baselines for Grammar Induction** (Y. Kim et al., ACL 2019).
 For more details, visit [the original repo](https://github.com/galsang/trees_from_transformers). 

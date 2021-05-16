@@ -3,7 +3,7 @@ import pickle
 from sklearn.metrics import classification_report
 import collections
 
-data_type = "val"  # options: ["train", "val", "test"]
+data_type = "test"  # options: ["train", "val", "test"]
 
 #dist_types = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
 dist_types = ['avg_hellinger']
@@ -11,7 +11,7 @@ dist_types = ['avg_hellinger']
 model_types = ['bert-large-cased']
 #rem_model_types = ['xlnet-base-cased', 'xlnet-large-cased']
 
-ah_distances = pickle.load(open("outputs/avg_hellinger-val-distances.pickle", "rb"))
+ah_distances = pickle.load(open("outputs/avg_hellinger-test-distances.pickle", "rb"))
 #aj_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-avg_jsd-distances.pickle", "rb"))
 #l2_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-l2-distances.pickle", "rb"))
 
