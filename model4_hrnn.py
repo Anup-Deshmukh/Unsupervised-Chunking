@@ -41,9 +41,7 @@ NUM_ITER = 50
 L_RATE = 0.001
 warmup = 50
 
-best_model_path = dire + 'best-model-hrnn.pt'
-pred_path_test_out = 'best_test.txt'
-opt_path = dire + 'sgd.opt'
+
 
 ##### load psuedo labels from compound pcfg model ####
 training_data_ori = pickle.load(open("data_conll/from_comppcfg/train_psuedo_data_hrnn_model.pkl", "rb"))
@@ -180,7 +178,11 @@ def train(model, optimizer, criterion, iterator, bert_embed, max_seq_len):
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--is-training', default=1, type=int) 
-	parser.add_argument('--dire', default="save_files/" , type=str) 
+	parser.add_argument('--dire', default="save_files/" , type=str) 	
+	args = parser.parse_args()
+	best_model_path = args.dire + 'best-model-hrnn.pt'
+	pred_path_test_out = 'best_test.txt'
+	opt_path = args.dire + 'sgd.opt'
 	
 	word_to_ix, ix_to_word, tag_to_ix = build_vocab(training_data, test_data, val_data)
 	
@@ -202,7 +204,7 @@ def main():
 	# scheduler = transformers.get_constant_schedule_with_warmup(optimizer, 
 	# 	num_warmup_steps = warmup, last_epoch = - 1)
 
-	if is_training:
+	if args.is_training:
 
 		############ validation data ############
 		v_tokens, v_tags, val_msl = data_padding(val_data, word_to_ix, tag_to_ix)
@@ -239,7 +241,7 @@ def main():
 			train_loss = train(hrnn_model, optimizer, loss_function, train_iterator, matrix, train_msl)
 			
 			print("[INFO] Valid procedure.....")	
-			pred_path_val_out = dire + 'validation/test_outputs' + str(epoch) + '.out'
+			pred_path_val_out = args.dire + 'validation/test_outputs' + str(epoch) + '.out'
 			loss_nimp = conll_eval(hrnn_model,  pred_path_val_out, BI_val_gt, val_iterator, loss_function, v_matrix, val_msl, model_path=None)
 			fscore = valid_conll_eval(pred_path_val_out)
 
@@ -256,7 +258,7 @@ def main():
 				torch.save(hrnn_model.state_dict(), best_model_path)	
 
 			if epoch%10 == 0:
-				torch.save(hrnn_model.state_dict(), dire+ str(epoch)+'hrnn.pt')
+				torch.save(hrnn_model.state_dict(), args.dire+ str(epoch)+'hrnn.pt')
 
 			torch.save(optimizer.state_dict(), opt_path)
 
@@ -267,7 +269,7 @@ def main():
 			print(f'\t Validation F score: {fscore:.3f}')
 	
 			plot_var = {'p1': train_loss_vec, 'p2': val_fscore_vec}
-			with open(dire+'plot.pkl', 'wb') as f:
+			with open(args.dire+'plot.pkl', 'wb') as f:
 				pickle.dump(plot_var, f) 
 
 	else:
@@ -279,7 +281,7 @@ def main():
 		print('[INFO] Create test embeddings matrix.....')
 		
 		test_matrix = compute_feat(bert_model, test_tokens, word_to_ix, ix_to_word, device)
-		with open(dire+'test_matrix.pkl', 'wb') as f:
+		with open(args.dire+'test_matrix.pkl', 'wb') as f:
 			pickle.dump(test_matrix, f) 
 		
 		#test_matrix = pickle.load(open("hrnn_pcfg/hrnn5/" + "test_matrix.pkl", "rb"))
