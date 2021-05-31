@@ -65,7 +65,8 @@ def compute_dist(args):
        
 
         measure = Measure(n_layers, n_att)
-        data_tokens = pickle.load(open("data_conll/conll/data_train_tokens.pkl", "rb"))
+        ### change to train token file to get distances for trianing distances ###
+        data_tokens = pickle.load(open("data_conll/conll/data_test_tokens.pkl", "rb"))
         print("tokens size: ", len(data_tokens))
         syn_dists_sents = []
 
