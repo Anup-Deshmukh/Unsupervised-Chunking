@@ -1,7 +1,6 @@
-# Language model chunker
+# Unsupervised Chunking
 
-This repository contains the code for utlizing the language models for unsupervised chunking. All the experiements are done on the conll-2000 dataset. 
-(will be updated soon...)
+This repository contains the code for utlizing the language models and HRNN for unsupervised chunking. All the experiements are done on the conll-2000 dataset. 
 
 ## Pre-requisite Python Libraries
 Install the following libraries specified in the **requirements.txt** before running our code.
@@ -19,7 +18,7 @@ Please refer to the code inside data_conll for all the processed files and the o
 
 ## Files
 
-All the output files ready for conll eval script are given in the output_chunks directory. The reported results on the test set can be replicated by running ***eval_conll2000_updated.pl*** (updated official perl eval script which only prints overall phrase level F1 and tag level accuracy)
+All the output files ready for conll eval script are given in the output_chunks directory. The reported results on the test set for CPCFG, LM and HRNN can be replicated by running ***eval_conll2000_updated.pl*** (updated official perl eval script which only prints overall phrase level F1 and tag level accuracy)
 
 Langugae model for unsupervised chunking
 - **run.py** to extract the features from different layers and different attemtion heads
