@@ -1,4 +1,3 @@
-import time
 import argparse
 import pickle
 import gensim
@@ -17,8 +16,6 @@ from transformers import *
 from extract_features import compute_feat
 from torchtext.data import Field, Iterator, BucketIterator
 from test_model4_hrnn import conll_eval
-from newtest_model4_hrnn import new_conll_eval
-from difftest_model4_hrnn import diff_conll_eval
 from subprocess import run, PIPE
 from torch.nn.utils.rnn import pack_padded_sequence
 from torch.nn.utils.rnn import pad_packed_sequence
@@ -26,22 +23,48 @@ from torch.nn.utils.rnn import pad_packed_sequence
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 #device = torch.device('cpu')
 
-from conll_dataset.conll_utils import epoch_time, valid_conll_eval, data_padding
-from conll_dataset.conll_utils import build_w2v, build_vocab, convert_to_word
+from data_conll.conll_utils import epoch_time, valid_conll_eval, data_padding
+from data_conll.conll_utils import build_w2v, build_vocab, convert_to_word
 #torch.autograd.set_detect_anomaly(True)
 
 
 EMBEDDING_DIM = 1024 # 768 base, 1024 large
 HIDDEN_DIM = 100
 NUM_LAYERS = 1
-is_training = 1
+is_training = 0
 
 BATCH_SIZE = 1
 NUM_ITER = 50
 L_RATE = 0.001
 warmup = 50
 
+training_data1 = [
+("The dog ate the apple".split(), ["B", "I", "B", "B", "I"]),
+("I love that Physics book".split(), ["B","B","B","B", "I"]),
+("I am Anup Anand Deshmukh".split(), ["B","B","B","I","I"]),
+("The man married the wife".split(), ["B","I","B","B","I"])
+]
 
+training_data2 = [
+("The dog ate the apple".split(), ["1", "2", "2", "1", "1"]),
+("I love you".split(), ["2","2","1"]),
+("I am Anup Anand".split(), ["2","2","1","1"]),
+("The man married his first wife".split(), ["1","2","2","2","1","1"])
+]
+
+training_data3 = [
+("You can go on your own".split(), ["2", "1", "2", "2", "1", "1"]),
+("Who are you".split(), ["2","2","1"])
+#("we should go there in time".split(), ["2","1","2", "1"]),
+#("this is a surprise".split(), ["2","1","2", "1"]),
+#("moon is setting now".split(), ["2","1","2", "1"]),
+#("come in terms with it".split(), ["2","1","2", "1"]),
+]
+
+training_data4 = [
+("we will see you soon".split(), ["2", "2", "1", "2", "1"]),
+("Rest in peace".split(), ["2", "2", "1"]),
+]
 
 ##### load psuedo labels from compound pcfg model ####
 training_data_ori = pickle.load(open("data_conll/from_comppcfg/train_psuedo_data_hrnn_model.pkl", "rb"))
@@ -53,12 +76,18 @@ BI_test_gt = pickle.load(open("data_conll/conll/data_test_tags.pkl", "rb"))
 BI_val_gt = pickle.load(open("data_conll/conll/data_val_tags.pkl", "rb"))
 
 
-##### initialize BERT model ####
-bert_model = [BertModel, BertTokenizer, BertConfig, 'bert-large-cased']
+# ##### initialize BERT model ####
+# bert_model = [BertModel, BertTokenizer, BertConfig, 'bert-large-cased']
+# training_data = training_data_ori
+# val_data = val_data_ori
+# test_data = test_data_ori
 
-training_data = training_data_ori
-val_data = val_data_ori
-test_data = test_data_ori
+training_data = training_data2
+val_data = training_data3
+test_data = training_data4
+bert_model = [BertModel, BertTokenizer, BertConfig, 'bert-large-cased']
+BI_val_gt = [['B','B','I','B', 'B', 'I' ], ['B','B','B']]
+BI_test_gt = [['B','B','B','I', 'I'], ['B','B','B']]
 
 class HRNNtagger(nn.ModuleList):
 
@@ -184,6 +213,8 @@ def main():
 	pred_path_test_out = 'best_test.txt'
 	opt_path = args.dire + 'sgd.opt'
 	
+	print("------------->")
+	print('[INFO] Build vocabulary.....')
 	word_to_ix, ix_to_word, tag_to_ix = build_vocab(training_data, test_data, val_data)
 	
 	print("device is:", device)
@@ -208,6 +239,7 @@ def main():
 
 		############ validation data ############
 		v_tokens, v_tags, val_msl = data_padding(val_data, word_to_ix, tag_to_ix)
+		get_sent = {v: k for k, v in word_to_ix.items()}
 
 		print("------------->")
 		print('[INFO] Create validation embeddings matrix.....')
@@ -291,7 +323,7 @@ def main():
 			batch_size=BATCH_SIZE, sort_key=lambda x: np.count_nonzero(x[0]), sort=False, 
 			shuffle=False, sort_within_batch=False, device = device)
 
-		loss_nimp = conll_eval(hrnn_model, pred_path_test_out, BI_test_gt, test_iterator, loss_function, test_matrix, test_msl, get_sent, best_model_path)
+		loss_nimp = conll_eval(hrnn_model, pred_path_test_out, BI_test_gt, test_iterator, loss_function, test_matrix, test_msl, best_model_path)
 	
 		print(f'| Test Loss: {loss_nimp:.3f}')
 		

@@ -12,7 +12,7 @@ import os, string, os.path
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 #device = torch.device('cpu')
 
-def conll_eval(model, pred_path, BI_gt, iterator, criterion, bert_embed, test_msl, get_sent, model_path):
+def conll_eval(model, pred_path, BI_gt, iterator, criterion, bert_embed, test_msl, model_path):
 	
 	if model_path:		
 		model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
