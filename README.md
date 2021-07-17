@@ -45,9 +45,11 @@ Hierarchical RNN for unsupervised chunking
 
 ## Additional Results
 
+Performance VS training size: Number of psuedo labels from CPCFG for HRNN are controlled. 
 <img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb1.png" alt="drawing" height="180" width="250"/>
 
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="140" width="450"/>
+Low resource language experiment  
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="120" width="450"/>
 
 
 ## Acknowledgments
