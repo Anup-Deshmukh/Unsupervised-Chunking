@@ -46,9 +46,9 @@ Hierarchical RNN for unsupervised chunking
 > python3 test_model4_hrnn.py 
 
 ## Addirional Results
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb1.png" alt="drawing" height="150" width="250"/>
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb1.png" alt="drawing" height="170" width="250"/>
 
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="150" width="400"/>
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="150" width="450"/>
 
 
 ## Acknowledgments
