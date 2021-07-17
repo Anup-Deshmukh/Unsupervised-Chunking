@@ -32,27 +32,26 @@ Hierarchical RNN for unsupervised chunking
 ## How to run the code?
 
 Langugae model for unsupervised chunking
-> python3 run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
-> python3 evaluate_distances.py
-  **important** set the following four variables: data_type, dist_types, model_types, distances pickle file
-> python3 evaluate_heuristics.py
+- python3 run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
+- python3 evaluate_distances.py (set the following four variables: data_type, dist_types, model_types, distances pickle file)
+- python3 evaluate_heuristics.py
 
 Compound PCFG 
-> (Code will be updated soon...)
+- (Code will be updated soon...)
 
 Hierarchical RNN for unsupervised chunking
-> python3 model4_hrnn.py [--is-training 1] [--dire SAVE_PATH]
-** "is_training" binary variable decides to train a model or use below "test_model4_hrnn.py" for running best trained model on the test set.
-> python3 test_model4_hrnn.py 
+- python3 model4_hrnn.py [--is-training 1] [--dire SAVE_PATH] 
+- python3 test_model4_hrnn.py 
 
-## Addirional Results
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb1.png" alt="drawing" height="170" width="250"/>
+## Additional Results
 
-<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="150" width="450"/>
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb1.png" alt="drawing" height="180" width="250"/>
+
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="140" width="450"/>
 
 
 ## Acknowledgments
 
-- Utility functions from the folder "utils" and datasets used in this repo are originally from the source code for 
-**Are Pre-trained Language Models Aware of Phrases? Simple but Strong Baselines for Grammar Induction** (Y. Kim et al., ACL 2019).
-For more details, visit [the original repo](https://github.com/galsang/trees_from_transformers). 
+- Utility functions from the folder "utils" and datasets used in this repo are originally from the source code for: 
+- Are Pre-trained Language Models Aware of Phrases? Simple but Strong Baselines for Grammar Induction** (Y. Kim et al., ACL 2019).
+- For more details, visit [the original repo](https://github.com/galsang/trees_from_transformers). 
