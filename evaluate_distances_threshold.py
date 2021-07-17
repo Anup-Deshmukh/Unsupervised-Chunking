@@ -3,7 +3,7 @@ import pickle
 from sklearn.metrics import classification_report
 import collections
 
-maxi = 70 #max length of dist vector for a sent (i.e max sent length - 1)
+maxi = 61 #max length of dist vector for a sent (i.e max sent length - 1)
 
 #dist_types = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
 dist_types = ['avg_hellinger']
@@ -12,7 +12,7 @@ dist_types = ['avg_hellinger']
 model_types = ['bert-large-cased']
 rem_model_types = ['roberta-base', 'roberta-large','xlnet-base-cased', 'xlnet-large-cased']
 
-data_tags_gt = pickle.load(open("data_conll/conll/data_train_tags.pkl", "rb"))
+data_tags_gt = pickle.load(open("data_conll/conll/data_test_tags.pkl", "rb"))
 BI_gt = np.concatenate([np.array(g) for g in data_tags_gt])
 num_b = np.count_nonzero(BI_gt == 'B')
 print("Num of phrases: ", num_b)
@@ -22,7 +22,7 @@ threshold_avg_h = pickle.load(open("outputs/run6_val/avg_hellinger.pickle", "rb"
 #threshold_avg_j = pickle.load(open("outputs/run6_val/avg_jsd.pickle", "rb"))
 #threshold_l2 = pickle.load(open("outputs/run6_val/l2.pickle", "rb"))
 
-ah_distances = pickle.load(open("outputs/run8_train/train_filtered-mean-avg_hellinger-distances.pickle", "rb"))
+ah_distances = pickle.load(open("random/avg_hellinger-test-distances.pickle", "rb"))
 #aj_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-avg_jsd-distances.pickle", "rb"))
 #l2_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-l2-distances.pickle", "rb"))
 
@@ -88,7 +88,7 @@ for dist_type in dist_types:
 			
 			BI_pred = np.array(BI_pred)
 		
-			pred_path = f'outputs/run8_train/{dist_type}/{model}-{dist_type}-{i}.out'
+			pred_path = f'random/bias0/{dist_type}/{model}-{dist_type}-{i}.out'
 			fc = 0
 			with open(pred_path, 'a') as fp:
 				for p in range(len(BI_pred)):

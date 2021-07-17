@@ -3,19 +3,14 @@ import pickle
 from sklearn.metrics import classification_report
 import collections
 
+bias = str(0) 
 data_type = "test"  # options: ["train", "val", "test"]
+dist_types = ['avg_hellinger'] # options = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
+model_types = ['bert-base-cased'] # options = ['bert-base-cased', 'bert-base-german-cased']
 
-#dist_types = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
-dist_types = ['avg_hellinger']
+ah_distances = pickle.load(open("random/avg_hellinger-"+bias+"-test-distances.pickle", "rb"))
 
-model_types = ['bert-large-cased']
-#rem_model_types = ['xlnet-base-cased', 'xlnet-large-cased']
-
-ah_distances = pickle.load(open("outputs/avg_hellinger-test-distances.pickle", "rb"))
-#aj_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-avg_jsd-distances.pickle", "rb"))
-#l2_distances = pickle.load(open("outputs/run4_test_dists/test_filtered-mean-l2-distances.pickle", "rb"))
-
-#############################################################################################################
+####################################### CONLL2000 ENGLISH DATASET ##################################################
 if data_type == "train":
 	num_cuts = 87780 
 	maxi = 71 #max length of dist vector for a sent (i.e max sent length - 1)
@@ -25,9 +20,20 @@ elif data_type == "val":
 elif data_type == "test":
 	num_cuts = 21839 # 
 	maxi = 61
+####################################### CONLL2003 GERMAN DATASET ##################################################
+# if data_type == "train":
+# 	num_cuts = 448828 
+# 	maxi = 156 #max length of dist vector for a sent (i.e max sent length - 1)
+# elif data_type == "val":
+# 	num_cuts = 45743 
+# 	maxi = 239 
+# elif data_type == "test":
+# 	num_cuts = 63178 # 
+# 	maxi = 222
 
 #############################################################################################################
 data_tags_gt = pickle.load(open("data_conll/conll/data_"+data_type+"_tags.pkl", "rb"))
+
 BI_gt = np.concatenate([np.array(g) for g in data_tags_gt])
 num_b = np.count_nonzero(BI_gt == 'B')
 print("Num of phrases: ", num_b)
@@ -68,12 +74,9 @@ for dist_type in dist_types:
 				if vec.shape[0] < maxi:
 					vec = np.pad(vec, (0, add_zeros), 'constant')
 
-				maxl_sent = max(maxl_sent, vec.shape[0]) # to find maxi
+				#maxl_sent = max(maxl_sent, vec.shape[0]) # to find maxi
 				mod_vec[j] = vec
-			print("max_length of a sent - 1: ", maxl_sent)
-			# print("dataset vec shape", mod_vec.shape)
-			# print("vec dist for 10th sent:", mod_vec[10])
-
+		
 			###### for measures which are directly proportional to distances
 			indices = (-mod_vec).argpartition(num_cuts, axis=None)[:num_cuts]
 
@@ -84,9 +87,6 @@ for dist_type in dist_types:
 			
 			for row, col in zip(x, y):
 					pred[row][col+1] = 'B'   # getting a cut when distances are higher (eg. for avg_helliner)
-					#max_dists.append(mod_vec[row][col]) # for threshold
-
-			#threshold.append(np.amin(max_dists)) # for threshold
 
 			for k in range(pred.shape[0]):
 				pred[k][0] = 'B'   # first tag for every sent would always be "B"
@@ -102,8 +102,9 @@ for dist_type in dist_types:
 			
 
 			BI_pred = np.array(BI_pred)
-			
-			pred_path = f'outputs/val/{dist_type}-{model}-{dist_type}-{i}.out'
+			print("len BI pred", len(BI_pred))
+			print("len BI gt", len(BI_gt))
+			pred_path = f'outputs/distances/test/{dist_type}-{model}-{dist_type}-{i}.out'
 			fc = 0
 			with open(pred_path, 'a') as fp:
 				for p in range(len(BI_pred)):
@@ -114,10 +115,3 @@ for dist_type in dist_types:
 			print("dist type: ", dist_type)
 			print("number of layers in a model: ", num_layers)
 			print("test sents processed: ", num_sents)
-
-			#print("results: \n")
-			#print(classification_report(BI_gt, BI_pred, target_names=target_names))
-		
-	#print(len(threshold))
-	#with open(f'outputs/run6/{dist_type}.pickle', 'wb') as f:
-	#	pickle.dump(threshold, f)

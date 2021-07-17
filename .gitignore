@@ -1,3 +1,10 @@
 outputs/
 __pycache__/
 data/
+experiment.py
+plot.py
+german_conll/
+save_files/
+random/
+bias_experiment/
+LM/

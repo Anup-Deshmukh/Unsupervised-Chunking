@@ -98,7 +98,11 @@ class HRNNtagger(nn.ModuleList):
 		#self.word_embeddings = nn.Embedding(vocab_size, embedding_dim, padding_idx=padding_idx)
 		self.rnn11 = nn.RNNCell(embedding_dim, hidden_dim).to(device)
 		self.rnn12 = nn.RNNCell(embedding_dim, hidden_dim).to(device)
+
 		self.rnn21 = nn.RNNCell(hidden_dim, hidden_dim).to(device)
+
+		#self.dropout = nn.Dropout(p=0.5)
+
 		self.hidden2tag = nn.Linear(hidden_dim+hidden_dim+embedding_dim, tagset_size - 1).to(device)
 		self.soft = nn.Softmax(dim=1)
 
@@ -111,6 +115,11 @@ class HRNNtagger(nn.ModuleList):
 		output_seq = torch.zeros((seqlens, self.tagset_size - 1)).to(self.device)
 		#mask_vec = torch.zeros(seqlens).type(torch.LongTensor).to(self.device)
 		
+		# print("max seq len", max_seq_len)
+		# print("seqlens", seqlens)
+		# print("sentence", sentence)
+
+
 		h11 = h_init.to(self.device)
 		h12 = h_init.to(self.device)
 		h1_actual = h_init.to(self.device)
@@ -121,6 +130,7 @@ class HRNNtagger(nn.ModuleList):
 
 		for t in range(seqlens):
 			#print("t", t)
+
 			if t == 0:
 				mask_ind = 1
 				entry = torch.unsqueeze(bert_sent[t], 0).to(self.device)
@@ -138,14 +148,13 @@ class HRNNtagger(nn.ModuleList):
 
 				tag_rep = self.hidden2tag(torch.cat((h1_actual, h2_actual, next_entry), dim=1)).to(self.device)	
 				output = torch.squeeze(self.soft(tag_rep))
-				mask_ind = torch.argmax(output)
-
 				output_seq[t] = output
 
 			else:  
 				# var_chop = output_seq[t-1].cpu().detach().numpy()
 				# mask_ind = np.where(var_chop == np.amax(var_chop))[0][0]
 				# mask_vec[t-1] = mask_ind
+
 				entry = torch.unsqueeze(bert_sent[t], 0).to(self.device)
 				if t == seqlens-1:
 					next_entry = torch.unsqueeze(bert_sent[t], 0).to(self.device)
@@ -158,15 +167,15 @@ class HRNNtagger(nn.ModuleList):
 				h22 = h2_actual
 				h21 = self.rnn21(h1_actual, h2_actual)
 
-				h1_actual = torch.mul(h11, (1-mask_ind)) + torch.mul(h12, mask_ind)
-				h2_actual = torch.mul(h22, (1-mask_ind)) + torch.mul(h21, mask_ind)
+				h1_actual = torch.mul(h11, output[0]) + torch.mul(h12, output[1])
+				h2_actual = torch.mul(h22, output[0]) + torch.mul(h21, output[1])
 
 				tag_rep = self.hidden2tag(torch.cat((h1_actual, h2_actual, next_entry), dim=1)).to(self.device)				
 				output = torch.squeeze(self.soft(tag_rep))
-				
-				mask_ind = torch.argmax(output)
 				output_seq[t] = output
+
 		return output_seq, h2_actual
+
 	def init_hidden(self):
 
 		# initialize the hidden state and the cell state to zeros

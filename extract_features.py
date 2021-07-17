@@ -93,36 +93,6 @@ def compute_feat(model_disc, data_tokens, word_to_ix, ix_to_word, device, token_
     
     return feat_sents
 
-# def pad_embed(bert_embed, msqlen):
-#     num_sents = len(bert_embed)
-#     emb_size = bert_embed[0].shape[1]
-
-#     new_bert_embed = np.ones((num_sents, msqlen, emb_size))
-
-#     for i in range(num_sents):
-#         temp = bert_embed[i]
-#         extrarows = msqlen - temp.shape[0]
-#         pad_rows = np.zeros((extrarows, emb_size))
-#         new_bert_embed[i] = np.vstack((temp, pad_rows))
-#     return new_bert_embed
-
-# def hugging_face_bert():
-
-#     tokenizer = BertTokenizer.from_pretrained('bert-large-uncased')
-#     model = BertModel.from_pretrained('bert-large-uncased')
-#     print(tokenizer.encode("Hello, my dog is cute"))
-#     print(tokenizer.encode("I will eat you!"))
-#     print(tokenizer.encode("Give me back my 100 $"))
-
-#     input_ids = torch.tensor(tokenizer.encode("Hello, my dog is cute")).unsqueeze(0)  # Batch size 1
-#     outputs = model(input_ids)
-#     last_hidden_states = outputs[0]  # The last hidden-state is the first element of the output tuple
-
-#     print(last_hidden_states.shape)
-
-
-
-
 
 
 

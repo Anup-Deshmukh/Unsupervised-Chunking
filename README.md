@@ -22,12 +22,12 @@ All the output files ready for conll eval script are given in the output_chunks 
 
 Langugae model for unsupervised chunking
 - **run.py** to extract the features from different layers and different attemtion heads
-- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script.  
+- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script. 
+- **evaluate_heuristics.py** to evaluate maximal left branching, maximal right branching heuristics on top of LM parser (Code for CPCFG and chunking heuristics will be updated soon).
 
 Hierarchical RNN for unsupervised chunking
 - **model4_hrnn.py** 
 - **test_model4_hrnn.py**  
-
 
 ## How to run the code?
 
@@ -35,6 +35,7 @@ Langugae model for unsupervised chunking
 > python3 run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
 > python3 evaluate_distances.py
   **important** set the following four variables: data_type, dist_types, model_types, distances pickle file
+> python3 evaluate_heuristics.py
 
 Compound PCFG 
 > (Code will be updated soon...)
@@ -43,6 +44,11 @@ Hierarchical RNN for unsupervised chunking
 > python3 model4_hrnn.py [--is-training 1] [--dire SAVE_PATH]
 ** "is_training" binary variable decides to train a model or use below "test_model4_hrnn.py" for running best trained model on the test set.
 > python3 test_model4_hrnn.py 
+
+## Addirional Results
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb1.png" alt="drawing" height="170" width="350"/>
+
+<img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="170" width="350"/>
 
 
 ## Acknowledgments

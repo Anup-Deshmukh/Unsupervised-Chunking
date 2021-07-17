@@ -58,5 +58,6 @@ def group_indices(tokens, raw_tokens, model):
             raw_i += 1
             collapsed = ''
     if raw_i != len(raw_tokens):
-        raise Exception(f'Token mismatch: \n{tokens}\n{raw_tokens}')
+        return 
+        #raise Exception(f'Token mismatch: \n{tokens}\n{raw_tokens}')
     return torch.tensor(mask)
