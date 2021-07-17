@@ -45,10 +45,8 @@ Hierarchical RNN for unsupervised chunking
 
 ## Additional Results
 
-Performance VS Training size
 <img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb1.png" alt="drawing" height="180" width="250"/>
-
-Low resource language experiment  
+ 
 <img src="https://github.com/Anup-Deshmukh/LM-Unsupervised-Chunking/blob/master/reb2.png" alt="drawing" height="120" width="450"/>
 
 
