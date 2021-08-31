@@ -117,8 +117,6 @@ def compute_dist(args):
                         [all_att[:, :, mask == i].mean(dim=2)
                          for i in range(raw_seq_len)], dim=2)
 
-            #print("all att emb", all_att.numpy().shape)
-
             l_hidden, r_hidden = all_hidden[:, :-1], all_hidden[:, 1:]
             l_att, r_att = all_att[:, :, :-1], all_att[:, :, 1:]
       
@@ -176,7 +174,7 @@ def main():
     result_path = args.result_path
     setattr(args, 'result_path', result_path)
     set_seed(args.seed)
-    #logging.disable(logging.WARNING)
+    
     print('[List of arguments]')
     for a in args.__dict__:
         print(f'{a}: {args.__dict__[a]}')

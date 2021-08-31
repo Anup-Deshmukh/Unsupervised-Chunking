@@ -4,11 +4,11 @@ from sklearn.metrics import classification_report
 import collections
 
 bias = str(0) 
-data_type = "test"  # options: ["train", "val", "test"]
+data_type = "val"  # options: ["train", "val", "test"]
 dist_types = ['avg_hellinger'] # options = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
 model_types = ['bert-base-cased'] # options = ['bert-base-cased', 'bert-base-german-cased']
 
-ah_distances = pickle.load(open("random/avg_hellinger-"+bias+"-test-distances.pickle", "rb"))
+ah_distances = pickle.load(open("output_distances/conll2012/val_dist.pkl", "rb"))
 
 ####################################### CONLL2000 ENGLISH DATASET ##################################################
 if data_type == "train":
@@ -20,6 +20,16 @@ elif data_type == "val":
 elif data_type == "test":
 	num_cuts = 21839 # 
 	maxi = 61
+###################################### CONLL2012 REVIEW ENGLISH DATASET ##################################################
+# if data_type == "train":
+# 	num_cuts = 41433 
+# 	maxi = 89 #max length of dist vector for a sent (i.e max sent length - 1)
+# elif data_type == "val":
+# 	num_cuts = 10394 
+# 	maxi = 80 
+# elif data_type == "test":
+# 	num_cuts = 5209 # 
+# 	maxi = 72
 ####################################### CONLL2003 GERMAN DATASET ##################################################
 # if data_type == "train":
 # 	num_cuts = 448828 
@@ -32,7 +42,7 @@ elif data_type == "test":
 # 	maxi = 222
 
 #############################################################################################################
-data_tags_gt = pickle.load(open("data_conll/conll/data_"+data_type+"_tags.pkl", "rb"))
+data_tags_gt = pickle.load(open("../conll2012/review_val_tag.pkl", "rb"))
 
 BI_gt = np.concatenate([np.array(g) for g in data_tags_gt])
 num_b = np.count_nonzero(BI_gt == 'B')
@@ -104,7 +114,7 @@ for dist_type in dist_types:
 			BI_pred = np.array(BI_pred)
 			print("len BI pred", len(BI_pred))
 			print("len BI gt", len(BI_gt))
-			pred_path = f'outputs/distances/test/{dist_type}-{model}-{dist_type}-{i}.out'
+			pred_path = f'output_distances/conll2012/val/{dist_type}-{i}.out'
 			fc = 0
 			with open(pred_path, 'a') as fp:
 				for p in range(len(BI_pred)):

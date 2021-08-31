@@ -1,6 +1,6 @@
 # Unsupervised Chunking
 
-This repository contains the code for utlizing the language models and HRNN for unsupervised chunking. All the experiements are done on the conll-2000 dataset. 
+This repository contains the code of our knowledge transfer approach for unsupervised chunking. 
 
 ## Pre-requisite Python Libraries
 Install the following libraries specified in the **requirements.txt** before running our code.
@@ -14,7 +14,7 @@ Install the following libraries specified in the **requirements.txt** before run
     
 ## Data preparation (CONLL)
 
-Please refer to the code inside data_conll for all the processed files and the original conll data files. 
+All the experiements and results in this repository are done on the CoNLL-2000 dataset. Please refer to the code inside data_conll for all the processed files and the original conll data files. 
 
 ## Files
 
@@ -23,7 +23,7 @@ All the output files ready for conll eval script are given in the output_chunks 
 Langugae model for unsupervised chunking
 - **run.py** to extract the features from different layers and different attemtion heads
 - **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script. 
-- **evaluate_heuristics.py** to evaluate maximal left branching, maximal right branching heuristics on top of LM parser (Code for CPCFG and chunking heuristics will be updated soon).
+- **evaluate_heuristics.py** to evaluate maximal left branching, maximal right branching heuristics on top of LM parser.
 
 Hierarchical RNN for unsupervised chunking
 - **model4_hrnn.py** 
