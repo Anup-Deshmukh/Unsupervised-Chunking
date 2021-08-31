@@ -33,11 +33,10 @@ Hierarchical RNN for unsupervised chunking
 
 Langugae model for unsupervised chunking
 - python3 run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
-- python3 evaluate_distances.py (set the following four variables: data_type, dist_types, model_types, distances pickle file)
-- python3 evaluate_heuristics.py
+- python3 evaluate_distances.py [--traintestval train] [--distmeasure avg_hellinger] [--model bert-base-cased] [--distpath DIST_PATH] [--gttagpath GT_TAG_PATH]
 
 Compound PCFG 
-- (Code will be updated soon...)
+- 
 
 Hierarchical RNN for unsupervised chunking
 - python3 model4_hrnn.py [--is-training 1] [--dire SAVE_PATH] 

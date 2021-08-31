@@ -1,14 +1,25 @@
+import argparse
 import numpy as np
 import pickle
 from sklearn.metrics import classification_report
 import collections
 
-bias = str(0) 
-data_type = "val"  # options: ["train", "val", "test"]
-dist_types = ['avg_hellinger'] # options = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
-model_types = ['bert-base-cased'] # options = ['bert-base-cased', 'bert-base-german-cased']
 
-ah_distances = pickle.load(open("output_distances/conll2012/val_dist.pkl", "rb"))
+parser.add_argument('--traintestval', default="train", type=int) # options: ["train", "val", "test"]
+parser.add_argument('--distmeasure', default="avg_hellinger" , type=str)  # options = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
+parser.add_argument('--model', default="bert-base-cased" , type=str) # options = ['bert-base-cased', 'bert-base-german-cased']
+parser.add_argument('--distpath', default="output_distances/train.pkl" , type=str) 	
+parser.add_argument('--gttagpath', default="save_files/train_tag.pkl" , type=str) 	
+
+
+args = parser.parse_args()
+
+bias = str(0) 
+data_type = args.traintestval 
+dist_types = [str(args.distmeasure)] 
+model_types = [str(args.model)]
+ah_distances = pickle.load(open(str(args.distpath), "rb"))
+data_tags_gt = pickle.load(open(str(args.gttagpath), "rb"))
 
 ####################################### CONLL2000 ENGLISH DATASET ##################################################
 if data_type == "train":
@@ -42,7 +53,6 @@ elif data_type == "test":
 # 	maxi = 222
 
 #############################################################################################################
-data_tags_gt = pickle.load(open("../conll2012/review_val_tag.pkl", "rb"))
 
 BI_gt = np.concatenate([np.array(g) for g in data_tags_gt])
 num_b = np.count_nonzero(BI_gt == 'B')
@@ -114,7 +124,7 @@ for dist_type in dist_types:
 			BI_pred = np.array(BI_pred)
 			print("len BI pred", len(BI_pred))
 			print("len BI gt", len(BI_gt))
-			pred_path = f'output_distances/conll2012/val/{dist_type}-{i}.out'
+			pred_path = f'output_distances/{data_type}-{dist_type}-{i}.out'
 			fc = 0
 			with open(pred_path, 'a') as fp:
 				for p in range(len(BI_pred)):
