@@ -5,21 +5,21 @@ from sklearn.metrics import classification_report
 import collections
 
 
-parser.add_argument('--traintestval', default="train", type=int) # options: ["train", "val", "test"]
-parser.add_argument('--distmeasure', default="avg_hellinger" , type=str)  # options = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
+parser.add_argument('--train-test-val', default="train", type=int) # options: ["train", "val", "test"]
+parser.add_argument('--dist-measure', default="avg_hellinger" , type=str)  # options = ['avg_hellinger', 'avg_jsd', 'l2', 'cos']
 parser.add_argument('--model', default="bert-base-cased" , type=str) # options = ['bert-base-cased', 'bert-base-german-cased']
-parser.add_argument('--distpath', default="output_distances/train.pkl" , type=str) 	
-parser.add_argument('--gttagpath', default="save_files/train_tag.pkl" , type=str) 	
+parser.add_argument('--dist-path', default="output_distances/train.pkl" , type=str) 	
+parser.add_argument('--gt-tag-path', default="save_files/train_tag.pkl" , type=str) 	
 
 
 args = parser.parse_args()
 
 bias = str(0) 
-data_type = args.traintestval 
-dist_types = [str(args.distmeasure)] 
+data_type = args.train_test_val 
+dist_types = [str(args.dist_measure)] 
 model_types = [str(args.model)]
-ah_distances = pickle.load(open(str(args.distpath), "rb"))
-data_tags_gt = pickle.load(open(str(args.gttagpath), "rb"))
+ah_distances = pickle.load(open(str(args.dist_path), "rb"))
+data_tags_gt = pickle.load(open(str(args.gt_tag_path), "rb"))
 
 ####################################### CONLL2000 ENGLISH DATASET ##################################################
 if data_type == "train":

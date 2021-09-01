@@ -32,11 +32,11 @@ Hierarchical RNN for unsupervised chunking
 ## How to run the code?
 
 Langugae model for unsupervised chunking
-- python3 run.py [--data-path DATA_PATH] [--result-path RESULT_PATH]
-- python3 evaluate_distances.py [--traintestval train] [--distmeasure avg_hellinger] [--model bert-base-cased] [--distpath DIST_PATH] [--gttagpath GT_TAG_PATH]
+- python3 run.py [--data-path PATH] [--result-path PATH]
+- python3 evaluate_distances.py [--train-test-val train] [--dist-measure avg_hellinger] [--model bert-base-cased] [--distpath PATH] [--gt-tag-path PATH]
 
 Compound PCFG 
-- 
+- Refer to the repo https://github.com/Anup-Deshmukh/CompoundPCFG-Chunker 
 
 Hierarchical RNN for unsupervised chunking
 - python3 model4_hrnn.py [--is-training 1] [--dire SAVE_PATH] 
