@@ -9,7 +9,7 @@ Install the following libraries specified in the **requirements.txt** before run
     numpy==1.15.4
     tqdm==4.26.0
     torch==1.3.1
-    nltk==3.4
+    nltk==3.6
     matplotlib==2.2.3
     
 ## Data preparation (CONLL)
@@ -31,19 +31,19 @@ Hierarchical RNN for unsupervised chunking
 
 ## How to run the code?
 
-Langugae model for unsupervised chunking
+(Teacher model 1) Langugae model
 - python3 run.py [--data-path PATH] [--result-path PATH]
 - python3 evaluate_distances.py [--train-test-val train] [--dist-measure avg_hellinger] [--model bert-base-cased] [--distpath PATH] [--gt-tag-path PATH]
 
-Compound PCFG 
+(Teacher model 2) Compound PCFG 
 - Refer to the repo https://github.com/Anup-Deshmukh/CompoundPCFG-Chunker 
 
-Hierarchical RNN for unsupervised chunking
+(Student model) Hierarchical RNN
 - python3 model4_hrnn.py [--is-training 1] [--dire SAVE_PATH] 
 - python3 test_model4_hrnn.py 
 
 ## Acknowledgments
 
-- Utility functions from the folder "utils" and datasets used in this repo are originally from the source code for: 
+Utility functions from the folder "utils" and datasets used in this repo are originally from the source code for: 
 - Are Pre-trained Language Models Aware of Phrases? Simple but Strong Baselines for Grammar Induction** (Y. Kim et al., ACL 2019).
 - For more details, visit [the original repo](https://github.com/galsang/trees_from_transformers). 
