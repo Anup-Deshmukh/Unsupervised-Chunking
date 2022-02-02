@@ -38,34 +38,6 @@ NUM_ITER = 50
 L_RATE = 0.001
 warmup = 50
 
-training_data1 = [
-("The dog ate the apple".split(), ["B", "I", "B", "B", "I"]),
-("I love that Physics book".split(), ["B","B","B","B", "I"]),
-("I am Anup Anand Deshmukh".split(), ["B","B","B","I","I"]),
-("The man married the wife".split(), ["B","I","B","B","I"])
-]
-
-training_data2 = [
-("The dog ate the apple".split(), ["1", "2", "2", "1", "1"]),
-("I love you".split(), ["2","2","1"]),
-("I am Anup Anand".split(), ["2","2","1","1"]),
-("The man married his first wife".split(), ["1","2","2","2","1","1"])
-]
-
-training_data3 = [
-("You can go on your own".split(), ["2", "1", "2", "2", "1", "1"]),
-("Who are you".split(), ["2","2","1"])
-#("we should go there in time".split(), ["2","1","2", "1"]),
-#("this is a surprise".split(), ["2","1","2", "1"]),
-#("moon is setting now".split(), ["2","1","2", "1"]),
-#("come in terms with it".split(), ["2","1","2", "1"]),
-]
-
-training_data4 = [
-("we will see you soon".split(), ["2", "2", "1", "2", "1"]),
-("Rest in peace".split(), ["2", "2", "1"]),
-]
-
 ##### load psuedo labels from compound pcfg model ####
 training_data_ori = pickle.load(open("data_conll/from_comppcfg/train_psuedo_data_hrnn_model.pkl", "rb"))
 val_data_ori = pickle.load(open("data_conll/from_comppcfg/val_psuedo_data_hrnn_model.pkl", "rb"))
