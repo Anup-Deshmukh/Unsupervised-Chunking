@@ -21,9 +21,9 @@ All the experiements and results in this repository are done on the CoNLL-2000 d
 All the output files ready for conll eval script are given in the output_chunks directory. The reported results on the test set for CPCFG, LM and HRNN can be replicated by running ***eval_conll2000_updated.pl*** (updated official perl eval script which only prints overall phrase level F1 and tag level accuracy)
 
 Langugae model for unsupervised chunking
-- **run.py** to extract the features from different layers and different attemtion heads
-- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script. 
-- **evaluate_heuristics.py** to evaluate maximal left branching, maximal right branching heuristics on top of LM parser.
+- **run.py** to extract the features from different layers and different attention heads
+- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script
+- **evaluate_heuristics.py** to evaluate maximal left branching, maximal right branching heuristics on top of LM parser
 
 Hierarchical RNN for unsupervised chunking
 - **model4_hrnn.py** 
