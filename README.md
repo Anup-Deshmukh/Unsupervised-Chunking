@@ -31,7 +31,7 @@ Hierarchical RNN for unsupervised chunking
 
 ## How to run the code?
 
-(Teacher model 1) Langugae model
+(Teacher model 1) Language model
 - python3 run.py [--data-path PATH] [--result-path PATH]
 - python3 evaluate_distances.py [--train-test-val train] [--dist-measure avg_hellinger] [--model bert-base-cased] [--distpath PATH] [--gt-tag-path PATH]
 
@@ -43,6 +43,9 @@ Hierarchical RNN for unsupervised chunking
 - python3 test_model4_hrnn.py 
 
 ## Acknowledgments
+
+If you find this code helpful do cite our EMNLP 2021 paper: "Unsupervised Chunking as Syntactic Structure Induction with a Knowledge-Transfer Approach" (https://aclanthology.org/2021.findings-emnlp.307/)
+
 
 Utility functions from the folder "utils" and datasets used in this repo are originally from the source code for: 
 - Are Pre-trained Language Models Aware of Phrases? Simple but Strong Baselines for Grammar Induction** (Y. Kim et al., ACL 2019).
