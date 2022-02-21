@@ -14,20 +14,20 @@ Install the following libraries specified in the **requirements.txt** before run
     
 ## Data preparation (CONLL)
 
-All the experiements and results in this repository are done on the CoNLL-2000 dataset. Please refer to the code inside data_conll for all the processed files and the original conll data files. 
+All the experiements in this repository are done on the CoNLL-2000 dataset. Please refer to the code inside data_conll for both processed and original dataset files. 
 
 ## Files
 
-All the output files ready for conll eval script are given in the output_chunks directory. The reported results on the test set for CPCFG, LM and HRNN can be replicated by running ***eval_conll2000_updated.pl*** (updated official perl eval script which only prints overall phrase level F1 and tag level accuracy)
+All the output files ready for conll eval script are provided in the output_chunks directory. The reported results on the test set for CPCFG, LM and HRNN can be replicated by running ***eval_conll2000_updated.pl*** on these files (updated official perl eval script which only prints overall phrase level F1 and tag level accuracy)
 
 Langugae model for unsupervised chunking
 - **run.py** to extract the features from different layers and different attention heads
-- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for evaluation script
+- **evaluate_distances.py** to evaluate the distances obtained from run.py and create a file ready for the evaluation script
 - **evaluate_heuristics.py** to evaluate maximal left branching, maximal right branching heuristics on top of LM parser
 
 Hierarchical RNN for unsupervised chunking
-- **model4_hrnn.py** 
-- **test_model4_hrnn.py**  
+- **model4_hrnn.py** to train the student HRNN model 
+- **test_model4_hrnn.py** to test the HRNN model and create a file ready for the evaluation script
 
 ## How to run the code?
 
